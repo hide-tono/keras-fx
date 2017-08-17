@@ -1,5 +1,3 @@
-from datetime import datetime
-
 import pandas
 
 positive_pips = 30
@@ -20,7 +18,7 @@ print(len(df))
 # 上にnegative pips動く前に下にpositive pips動いていたら売り
 for i in range(len(df) - 241):
     base = df.ix[i]
-    target = df[i:i+240]
+    target = df[i:i + 240]
     upper_negative = target.ix[target['h'] > df['h'][i] + negative_pips * point]
     upper_positive = target.ix[target['h'] > df['h'][i] + positive_pips * point]
     lower_negative = target.ix[target['l'] < df['l'][i] - negative_pips * point]
