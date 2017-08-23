@@ -1,6 +1,5 @@
 import pandas
 
-
 positive_pips = 30
 negative_pips = 10
 point = 0.0001
@@ -17,7 +16,7 @@ df.index = df['datetime']
 df['signal'] = 0
 print(len(df))
 
-# シグナルを作成する
+# シグナルを作成する。対象は4時間(240分)。
 # 下にnegative pips動く前に上にpositive pips動いていたら買い
 # 上にnegative pips動く前に下にpositive pips動いていたら売り
 for i in range(len(df) - 241):
