@@ -17,8 +17,11 @@ df['signal'] = 0
 print(len(df))
 
 # シグナルを作成する。対象は4時間(240分)。
-# 下にnegative pips動く前に上にpositive pips動いていたら買い
-# 上にnegative pips動く前に下にpositive pips動いていたら売り
+# 下にnegative pips動く前に上にpositive pips動いていたら買い(signal = 2)
+# 上にnegative pips動いたもののpositive pipsに辿り着く前に下にnegative pips動いてしまった場合はダマシ(signal = 1)
+# 上下にnegative pipsも動かなかった場合は凪(signal = 0)
+# 下にnegative pips動いたもののpositive pipsに辿り着く前に上にnegative pips動いてしまった場合はダマシ(signal = -1)
+# 上にnegative pips動く前に上にpositive pips動いていたら買い(signal = -2)
 for i in range(len(df) - 241):
     base = df.ix[i]
     target = df[i:i + 240]
@@ -29,9 +32,9 @@ for i in range(len(df) - 241):
 
     if len(upper_positive) > 0:
         if len(lower_negative) == 0:
-            df['signal'][i] = 1
+            df['signal'][i] = 2
         elif upper_positive.ix[0]['datetime'] < lower_negative.ix[0]['datetime']:
-            df['signal'][i] = 1
+            df['signal'][i] = 2
     if len(lower_positive) > 0:
         if len(upper_negative) == 0:
             df['signal'][i] = -1
