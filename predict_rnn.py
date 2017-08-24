@@ -25,7 +25,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(x, y, train_size=0.8)
 X_train, X_validation, Y_train, Y_validation = \
     train_test_split(X_train, Y_train, train_size=0.8)
 
-n_in = len(x[0][0])  # 1440
+n_in = len(x[0][0])  # 1
 n_hidden = 16
 n_out = len(y[0])  # 3
 
@@ -50,19 +50,6 @@ hist = model.fit(X_train, Y_train,
                  epochs=epochs,
                  validation_data=(X_validation, Y_validation),
                  callbacks=[early_stopping, TensorBoard(log_dir="log", histogram_freq=1)])
-
-'''
-学習の進み具合を可視化
-'''
-acc = hist.history['val_acc']
-loss = hist.history['val_loss']
-
-pyplot.rc('font', family='serif')
-fig = pyplot.figure()
-pyplot.plot(range(len(loss)), loss,
-            label='loss', color='black')
-pyplot.xlabel('epochs')
-pyplot.show()
 
 '''
 予測精度の評価
